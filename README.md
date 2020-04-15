@@ -1,2 +1,2 @@
 # SIMPLE-INTEREST-Calculator
-My first flutter app.
+My first flutter app for Android.
