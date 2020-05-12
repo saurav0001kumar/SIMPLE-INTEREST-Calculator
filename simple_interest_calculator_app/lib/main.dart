@@ -11,7 +11,7 @@ void main() {
     home: Scaffold(
         //resizeToAvoidBottomPadding: false,
         appBar: AppBar(
-          elevation:20,
+          elevation: 20,
           centerTitle: true,
           backgroundColor: Colors.orange,
           title: Text("Simple Interest Calculator"),
@@ -28,7 +28,9 @@ class gui extends StatefulWidget {
 }
 
 class ui extends State<gui> {
-  var formKey = GlobalKey<FormState>();
+  var formKey1 = GlobalKey<FormState>();
+  var formKey2 = GlobalKey<FormState>();
+  var formKey3 = GlobalKey<FormState>();
   double p = 0, r = 0, t = 0, si, a;
   String str = "";
   var ptc = TextEditingController();
@@ -37,146 +39,158 @@ class ui extends State<gui> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-        key: formKey,
-        child: Scrollbar(
-          child: ListView(
-            children: <Widget>[
-              Img(),
-              Padding(
-                child: TextFormField(
-                  validator: (String val) {
-                    if (val.isEmpty) return ("*Enter Prinicipal amount first !");
-                  },
-                  controller: ptc,
-                  textAlign: TextAlign.right,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.arrow_forward_ios),
-                    fillColor: Colors.yellowAccent,
-                    labelText: "Principal",
-                    hintText: "Enter Principal value",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                  ),
-                  enableInteractiveSelection: true,
-                  onFieldSubmitted: (var userp) {
-                    setState(() {
-                      p = userp as double;
-                    });
-                  },
+    return ListView(
+      children: <Widget>[
+        //1st element
+        Img(),
+
+        //2nd element
+        Padding(
+          child: Form(
+              key: formKey1,
+              child: TextFormField(
+                validator: (String val) {
+                  if (val.isEmpty) return ("*Enter Prinicipal amount first !");
+                },
+                controller: ptc,
+                textAlign: TextAlign.right,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.arrow_forward_ios),
+                  fillColor: Colors.yellowAccent,
+                  labelText: "Principal",
+                  hintText: "Enter Principal value",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5)),
                 ),
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-              ),
-              Padding(
-                child: TextFormField(
-                  validator: (String val) {
-                    if (val.isEmpty) return ("*Enter Interest Rate first !");
-                  },
-                  controller: rtc,
-                  textAlign: TextAlign.right,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.equalizer),
-                    fillColor: Colors.yellowAccent,
-                    labelText: "Rate of Interest (%)",
-                    hintText: "Enter Rate of Interest per annum",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                  ),
-                  enableInteractiveSelection: true,
-                  onFieldSubmitted: (var userr) {
-                    setState(() {
-                      r = userr as double;
-                    });
-                  },
+                enableInteractiveSelection: true,
+                onFieldSubmitted: (var userp) {
+                  setState(() {
+                    p = userp as double;
+                  });
+                },
+              )),
+          padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+        ),
+
+        //3rd element
+        Padding(
+          child: Form(
+              key: formKey2,
+              child: TextFormField(
+                validator: (String val) {
+                  if (val.isEmpty) return ("*Enter Interest Rate first !");
+                },
+                controller: rtc,
+                textAlign: TextAlign.right,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.equalizer),
+                  fillColor: Colors.yellowAccent,
+                  labelText: "Rate of Interest (%)",
+                  hintText: "Enter Rate of Interest per annum",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5)),
                 ),
-                padding: EdgeInsets.all(10),
-              ),
-              Padding(
-                child: TextFormField(
-                  validator: (String val) {
-                    if (val.isEmpty) return ("*Enter term first !");
-                  },
-                  controller: ttc,
-                  textAlign: TextAlign.right,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.event),
-                    fillColor: Colors.yellowAccent,
-                    labelText: "Term",
-                    hintText: "Enter Time in year(s)",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                  ),
-                  enableInteractiveSelection: true,
-                  onFieldSubmitted: (var usert) {
-                    setState(() {
-                      t = usert as double;
-                    });
-                  },
+                enableInteractiveSelection: true,
+                onFieldSubmitted: (var userr) {
+                  setState(() {
+                    r = userr as double;
+                  });
+                },
+              )),
+          padding: EdgeInsets.all(10),
+        ),
+
+        //4th element
+        Padding(
+          child: Form(
+              key: formKey3,
+              child: TextFormField(
+                validator: (String val) {
+                  if (val.isEmpty) return ("*Enter term first !");
+                },
+                controller: ttc,
+                textAlign: TextAlign.right,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.event),
+                  fillColor: Colors.yellowAccent,
+                  labelText: "Term",
+                  hintText: "Enter Time in year(s)",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5)),
                 ),
-                padding: EdgeInsets.all(10),
+                enableInteractiveSelection: true,
+                onFieldSubmitted: (var usert) {
+                  setState(() {
+                    t = usert as double;
+                  });
+                },
+              )),
+          padding: EdgeInsets.all(10),
+        ),
+
+        //5th element
+        Row(
+          children: <Widget>[
+            Expanded(
+                child: Container(
+              padding: EdgeInsets.fromLTRB(40, 10, 10, 10),
+              child: RaisedButton(
+                color: Colors.orangeAccent,
+                textColor: Colors.white,
+                elevation: 10,
+                child: Text(
+                  "Calculate",
+                  style: TextStyle(fontSize: 18),
+                ),
+                onPressed: () {
+                  setState(() {
+                    if (formKey1.currentState.validate() &&
+                        formKey2.currentState.validate() &&
+                        formKey3.currentState.validate()) this.str = calc();
+                  });
+                },
               ),
-              Center(
-                  child: Container(
-                      child: Row(
-                children: <Widget>[
-                  Padding(
-                      padding: EdgeInsets.fromLTRB(65, 10, 10, 10),
-                      child: Expanded(
-                        child: RaisedButton(
-                          color: Colors.orangeAccent,
-                          textColor: Colors.white,
-                          elevation: 10,
-                          child: Text(
-                            "Calculate",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              if (formKey.currentState.validate())
-                                this.str = calc();
-                            });
-                          },
-                        ),
-                      )),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                    child: Expanded(
-                      child: RaisedButton(
+            )),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.fromLTRB(10, 10, 40, 10),
+                child: RaisedButton(
 //  color: Colors.white,
-                        textColor: Colors.orange,
-                        elevation: 10,
-                        child: Text(
-                          "Reset",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            reset();
-                          });
-                        },
-                      ),
-                    ),
-                  )
-                ],
-              ))),
-              Padding(
-                  padding: EdgeInsets.fromLTRB(20,5,15,10),
-                  child: Center(
-                    child: Text(
-                      this.str,
-                      style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.deepOrangeAccent),
-                    ),
-                  ))
-            ],
-          ),
-        ));
+                  textColor: Colors.orange,
+                  elevation: 10,
+                  child: Text(
+                    "Reset",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      reset();
+                    });
+                  },
+                ),
+              ),
+            )
+          ],
+        ),
+
+        //6th element
+        Container(
+            padding: EdgeInsets.fromLTRB(20, 5, 15, 10),
+            child: Center(
+              child: Text(
+                this.str,
+                style: TextStyle(
+                    fontStyle: FontStyle.normal,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepOrangeAccent),
+              ),
+            ))
+      ],
+    );
   }
 
   String calc() {
@@ -186,7 +200,8 @@ class ui extends State<gui> {
 
     double siz = (pz * rz * tz) / 100;
     double az = pz + siz;
-    String sstr = "*SIMPLE INTEREST = ₹$siz  and *Total AMOUNT after $tz year(s) = ₹$az";
+    String sstr =
+        "*SIMPLE INTEREST = ₹$siz  and *Total AMOUNT after $tz year(s) = ₹$az";
 
     return sstr;
   }
